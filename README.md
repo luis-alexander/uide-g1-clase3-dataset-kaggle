@@ -84,8 +84,8 @@ house-prices-ames/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/house-prices-ames.git
-cd house-prices-ames
+https://github.com/luis-alexander/uide-g1-clase3-dataset-kaggle.git
+cd uide-g1-clase3-dataset-kaggle
 ```
 
 ### 2. Instalar dependencias
