@@ -105,7 +105,9 @@ Ir a [Kaggle](https://www.kaggle.com/competitions/house-prices-advanced-regressi
 
 ```bash
 jupyter notebook notebooks/analisis_ames_housing.ipynb
+desde el cmd se puede usar: python -m notebook notebooks/analisis_ames_housing.ipynb
 ```
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/ef201da8-9c6a-4dec-90e1-c89bc754162e" />
 
 ---
 
