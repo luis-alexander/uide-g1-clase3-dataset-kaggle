@@ -98,6 +98,9 @@ pip install -r requirements.txt
 
 Ir a [Kaggle](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data), aceptar las reglas y descargar `train.csv`. Colocarlo en `data/raw/`.
 
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/2abe500c-c746-4c14-9549-1afdb1fb9239" />
+
+
 ### 4. Ejecutar el notebook
 
 ```bash
