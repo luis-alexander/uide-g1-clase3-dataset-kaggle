@@ -1,6 +1,6 @@
 # Data files (descargar desde Kaggle)
-data/raw/
-data/processed/
+#data/raw/
+#data/processed/
 
 # Jupyter checkpoints
 .ipynb_checkpoints/
