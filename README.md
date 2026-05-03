@@ -84,8 +84,8 @@ house-prices-ames/
 ### 1. Clonar el repositorio
 
 ```bash
-git clone https://github.com/TU_USUARIO/house-prices-ames.git
-cd house-prices-ames
+https://github.com/luis-alexander/uide-g1-clase3-dataset-kaggle.git
+cd uide-g1-clase3-dataset-kaggle
 ```
 
 ### 2. Instalar dependencias
@@ -98,11 +98,16 @@ pip install -r requirements.txt
 
 Ir a [Kaggle](https://www.kaggle.com/competitions/house-prices-advanced-regression-techniques/data), aceptar las reglas y descargar `train.csv`. Colocarlo en `data/raw/`.
 
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/2abe500c-c746-4c14-9549-1afdb1fb9239" />
+
+
 ### 4. Ejecutar el notebook
 
 ```bash
 jupyter notebook notebooks/analisis_ames_housing.ipynb
+desde el cmd se puede usar: python -m notebook notebooks/analisis_ames_housing.ipynb
 ```
+<img width="800" height="400" alt="image" src="https://github.com/user-attachments/assets/ef201da8-9c6a-4dec-90e1-c89bc754162e" />
 
 ---
 
