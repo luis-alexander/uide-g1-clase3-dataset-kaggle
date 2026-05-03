@@ -193,3 +193,88 @@ df['Qual_x_NeighPrice'] = df['OverallQual'] * df['NeighMedianPrice']
 | **Consecuencia** | Sobreestimación del precio en casos extremos — hasta 33% de error |
 | **Cómo detectarlo** | Análisis de residuales por segmento de interacción |
 | **Cómo corregirlo** | Feature engineering: `OverallQual × NeighborhoodMedianPrice` |
+
+---
+INTEGRANTE: Luis Alexander Soto Segovia
+
+# Evaluación de interacciones entre variables
+
+Las interacciones entre variables ocurren cuando el efecto de una variable depende del valor de otra. En este caso, el impacto de la calidad de la casa (`OverallQual`) sobre el precio no es igual en todos los vecindarios (`Neighborhood`).
+
+Para evaluarlas correctamente se pueden aplicar varios enfoques:
+
+## 1. Análisis exploratorio (EDA)
+
+Se pueden usar visualizaciones para observar cómo cambia el precio según combinaciones de variables:
+
+```python
+import seaborn as sns
+import matplotlib.pyplot as plt
+
+sns.boxplot(data=df, x='OverallQual', y='SalePrice', hue='Neighborhood')
+plt.xticks(rotation=45)
+plt.show()
+```
+
+Esto permite ver si, por ejemplo, las casas de baja calidad en zonas caras tienen comportamientos distintos.
+
+## 2. Crear variables de interacción (Feature Engineering)
+
+Se puede modelar explícitamente la interacción:
+
+```python
+df['Qual_x_Neigh'] = df['OverallQual'] * df['Neighborhood_encoded']
+```
+
+O usando el precio mediano del vecindario:
+
+```python
+median_price = df.groupby('Neighborhood')['SalePrice'].median()
+df['NeighMedian'] = df['Neighborhood'].map(median_price)
+
+df['Interaction'] = df['OverallQual'] * df['NeighMedian']
+```
+
+Esto ayuda a que modelos lineales capturen relaciones no aditivas.
+
+## 3. Evaluación en modelos (con interacción)
+
+Ejemplo con regresión lineal incluyendo interacción:
+
+```python
+from sklearn.linear_model import LinearRegression
+
+features = ['OverallQual', 'NeighMedian', 'Interaction']
+X = df[features]
+y = df['SalePrice']
+
+model = LinearRegression()
+model.fit(X, y)
+```
+
+## 4. Análisis de errores (residuales)
+
+Para detectar si la interacción no está bien capturada:
+
+```python
+df['Pred'] = model.predict(X)
+df['Error'] = abs(df['SalePrice'] - df['Pred'])
+
+df.groupby(['QualGroup', 'Neighborhood'])['Error'].mean()
+```
+
+Si ciertos grupos (ej. baja calidad + vecindario caro) tienen mayor error, confirma la necesidad de modelar la interacción.
+
+## Impacto en el predictor
+
+Si no se consideran estas interacciones:
+
+- El modelo asume efectos independientes (aditivos), lo cual no es real.  
+- Puede sobreestimar precios en casas de mala calidad ubicadas en zonas caras.  
+- Puede subestimar propiedades en otros escenarios.  
+- Se incrementa el error en casos extremos.  
+
+## Modelos y su comportamiento
+
+- Regresión Lineal, Ridge, Lasso: no capturan interacciones automáticamente → mayor error.  
+- Random Forest, Gradient Boosting: capturan interacciones de forma implícita → mejores resultados.
